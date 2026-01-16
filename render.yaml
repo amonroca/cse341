@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: cse341-project1
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: project1
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+    healthCheckPath: /contacts
