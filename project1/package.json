@@ -11,5 +11,10 @@
     "url": "https://github.com/amonroca/cse341/project1"
   },
   "author": "Amon Roca",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongodb": "^7.0.0"
+  }
 }

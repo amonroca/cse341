@@ -1,0 +1,17 @@
+### Variables
+@dev-host = localhost
+@port = 8080
+@devBaseUrl = http://{{dev-host}}:{{port}}
+
+### List all contacts
+GET {{devBaseUrl}}/contacts
+Accept: application/json
+
+### Get contact by id (example: 1)
+GET {{devBaseUrl}}/contacts/6962b4813b32f258603fea26
+Accept: application/json
+
+### Get contact by id (not found example)
+GET {{devBaseUrl}}/contacts/6962b4813b32f258603fea17
+Accept: application/json
+
