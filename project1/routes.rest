@@ -1,17 +1,32 @@
 ### Variables
 @dev-host = localhost
+@prod-host = https://cse341-y63x.onrender.com
 @port = 8080
 @devBaseUrl = http://{{dev-host}}:{{port}}
 
+### Development Environment
 ### List all contacts
 GET {{devBaseUrl}}/contacts
 Accept: application/json
 
-### Get contact by id (example: 1)
+### Get contact by id
 GET {{devBaseUrl}}/contacts/6962b4813b32f258603fea26
 Accept: application/json
 
 ### Get contact by id (not found example)
 GET {{devBaseUrl}}/contacts/6962b4813b32f258603fea17
+Accept: application/json
+
+### Production Environment
+### List all contacts
+GET {{prod-host}}/contacts
+Accept: application/json
+
+### Get contact by id
+GET {{prod-host}}/contacts/6962b4813b32f258603fea26
+Accept: application/json
+
+### Get contact by id (not found example)
+GET {{prod-host}}/contacts/6962b4813b32f258603fea17
 Accept: application/json
 
