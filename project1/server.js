@@ -1,8 +1,18 @@
 const express = require('express');
 const app = express();
 const { connectDb, disconnectDb } = require('./data/database');
-
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 dotenv.config();
 
 const port = process.env.PORT || 8080;

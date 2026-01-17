@@ -17,6 +17,32 @@ Accept: application/json
 GET {{devBaseUrl}}/contacts/6962b4813b32f258603fea17
 Accept: application/json
 
+### Add a new contact
+POST {{devBaseUrl}}/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Amon",
+  "lastName": "Roca",
+  "email": "amon.roca@example.com",
+  "favoriteColor": "blue",
+  "birthday": "1988-07-12"
+}
+
+### Update a contact
+PUT {{devBaseUrl}}/contacts/6962b4813b32f258603fea26
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "favoriteColor": "green",
+  "birthday": "1992-02-02"
+}
+
+### Delete a contact
+DELETE {{devBaseUrl}}/contacts/6962b4813b32f258603fea26
+
 ### Production Environment
 ### List all contacts
 GET {{prod-host}}/contacts

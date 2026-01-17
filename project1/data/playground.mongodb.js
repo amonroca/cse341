@@ -37,3 +37,5 @@ db.getCollection('contacts').find({ 'birthday': { $gt: '1990-01-01' } });
 
 // Find a contact by id.
 db.getCollection('contacts').find({ 'contactId': 3 });
+
+db.getCollection('contacts').insertOne({ 'contactId': 11, 'firstName': 'Jack', 'lastName': 'White', 'email': 'jack.white@example.com', 'favoriteColor': 'black', 'birthday': '1998-10-10' });
