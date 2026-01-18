@@ -5,7 +5,7 @@
     "description": "API documentation for Contacts management",
     "version": "1.0.0"
   },
-  "host": "https://cse341-y63x.onrender.com",
+  "host": "cse341-y63x.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
