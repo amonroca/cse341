@@ -1,14 +1,10 @@
 const db = require('../models');
 const Temple = db.temples;
 
-const apiKey =
-  'Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N';
-
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
   // Validate request
   if (!req.body.name) {
-    res.status(400).send({ message: 'Content can not be empty!' });
-    return;
+    return next({ status: 400, message: 'Content can not be empty!' });
   }
 
   // Create a Temple
@@ -21,65 +17,39 @@ exports.create = (req, res) => {
   // Save Temple in the database
   temple
     .save(temple)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || 'Some error occurred while creating the Temple.',
-      });
-    });
+    .then((data) => res.send(data))
+    .catch((err) => next(err));
 };
 
-exports.findAll = (req, res) => {
-  console.log(req.header('apiKey'));
-  if (req.header('apiKey') === apiKey) {
-    Temple.find(
-      {},
-      {
-        temple_id: 1,
-        name: 1,
-        location: 1,
-        dedicated: 1,
-        additionalInfo: 1,
-        _id: 0,
-      }
-    )
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || 'Some error occurred while retrieving temples.',
-        });
-      });
-  } else {
-    res.send('Invalid apiKey, please read the documentation.');
-  }
+exports.findAll = (req, res, next) => {
+  Temple.find(
+    {},
+    {
+      temple_id: 1,
+      name: 1,
+      location: 1,
+      dedicated: 1,
+      additionalInfo: 1,
+      _id: 0,
+    }
+  )
+    .then((data) => res.send(data))
+    .catch((err) => next(err));
 };
 
 // Find a single Temple with an id
-exports.findOne = (req, res) => {
+exports.findOne = (req, res, next) => {
   const temple_id = req.params.temple_id;
-  if (req.header('apiKey') === apiKey) {
-    Temple.find({ temple_id: temple_id })
-      .then((data) => {
-        if (!data)
-          res
-            .status(404)
-            .send({ message: 'Not found Temple with id ' + temple_id });
-        else res.send(data[0]);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: 'Error retrieving Temple with temple_id=' + temple_id,
-        });
-      });
-  } else {
-    res.send('Invalid apiKey, please read the documentation.');
-  }
+  Temple.find({ temple_id: temple_id })
+    .then((data) => {
+      if (!data || data.length === 0) {
+        return res
+          .status(404)
+          .send({ message: 'Not found Temple with id ' + temple_id });
+      }
+      return res.send(data[0]);
+    })
+    .catch((err) => next(err));
 };
 
 // // Update a Temple by the id in the request
