@@ -54,15 +54,25 @@ async function addContact(req, res, next) {
 }
 
 async function editContact(req, res, next) {
+  // Only include fields that are present in the request body
+  const allowedFields = ['firstName', 'lastName', 'email', 'favoriteColor', 'birthday'];
+  const contactData = {};
+  for (const field of allowedFields) {
+    if (Object.prototype.hasOwnProperty.call(req.body, field) && req.body[field] !== undefined) {
+      contactData[field] = req.body[field];
+    }
+  }
+  if (Object.keys(contactData).length === 0) {
+    return res.status(400).json({ error: 'No valid fields provided for update' });
+  }
   try {
     if (getConnectionState()) {
-      const updatedContact = await updateContact(getDb(), new ObjectId(req.params.id), req.body);
-      if (updatedContact) {
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(200).json(updatedContact);
-      } else {
+      const result = await updateContact(getDb(), new ObjectId(req.params.id), contactData);
+      if (!result || result.matchedCount === 0) {
         return res.status(404).json({ error: 'Contact not found' });
       }
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(200).json(result);
     }
     return res.status(503).json({ error: 'Database unavailable' });
   } catch (err) {

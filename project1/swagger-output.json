@@ -5,14 +5,23 @@
     "description": "API documentation for Contacts management",
     "version": "1.0.0"
   },
-  "host": "cse341-y63x.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Contacts",
+      "description": "Operações de gerenciamento de contatos"
+    }
+  ],
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/contacts/": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -27,6 +36,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -39,19 +51,24 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Amon"
                 },
                 "lastName": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Roca"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "amon.roca@example.com"
                 },
                 "favoriteColor": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Blue"
                 },
                 "birthday": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "1988-07-12"
                 }
               }
             }
@@ -69,6 +86,9 @@
     },
     "/contacts/{id}": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -94,6 +114,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -104,11 +127,43 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Amon"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Roca"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "amon.roca@example.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "Green"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "1988-07-12"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"
@@ -119,6 +174,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
