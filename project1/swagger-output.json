@@ -5,7 +5,7 @@
     "description": "API documentation for Contacts management",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-y63x.onrender.com",
   "basePath": "/",
   "tags": [
     {
@@ -14,7 +14,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/contacts/": {
