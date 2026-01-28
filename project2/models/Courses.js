@@ -12,13 +12,17 @@ async function selectCourseById(db, id) {
 
 async function insertCourse(db, course) {
   const col = db.collection(COLLECTION_NAME);
-  const result = await col.insertOne(course);
+  const now = new Date();
+  const doc = { ...course, createdAt: now, updatedAt: now };
+  const result = await col.insertOne(doc);
   return { _id: result.insertedId };
 }
 
 async function updateCourse(db, id, updatedCourse) {
   const col = db.collection(COLLECTION_NAME);
-  return col.updateOne({ _id: id }, { $set: updatedCourse });
+  const now = new Date();
+  const setDoc = { ...updatedCourse, updatedAt: now };
+  return col.updateOne({ _id: id }, { $set: setDoc });
 }
 
 async function deleteCourse(db, id) {

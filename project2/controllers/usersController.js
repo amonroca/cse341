@@ -51,10 +51,13 @@ async function addUser(req, res, next) {
 }
 
 async function editUser(req, res, next) {
+  const userData = {};
+  if (req.body.name !== undefined) userData.name = req.body.name;
+  if (req.body.email !== undefined) userData.email = req.body.email;
   try {
     if (getConnectionState()) {
-        const updatedUser = await Users.updateUser(getDb(), new ObjectId(req.params.id), req.body);
-        if (updatedUser) {
+        const updatedUser = await Users.updateUser(getDb(), new ObjectId(req.params.id), userData);
+        if (updatedUser && updatedUser.matchedCount > 0) {
             res.setHeader('Content-Type', 'application/json');
             return res.status(200).json({ message: 'User updated successfully' });
         } else {

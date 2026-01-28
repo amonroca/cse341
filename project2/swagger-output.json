@@ -5,7 +5,7 @@
     "description": "This API allows management of users, courses, and assignments in a student course tracking system. It supports CRUD operations, OAuth-based authentication, and provides comprehensive documentation.",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "cse341-y63x.onrender.com",
   "basePath": "/",
   "tags": [
     {
@@ -22,7 +22,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/users/": {
@@ -36,10 +36,45 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Users retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Alice"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "alice@example.com"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "student"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2024-01-01T00:00:00Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2024-01-01T00:00:00Z"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       },
@@ -55,17 +90,22 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "Data for user creation",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Jenifer"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "jenifer@example.com"
                 },
                 "role": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "student"
                 }
               }
             }
@@ -73,10 +113,25 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "User created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Validation errors in payload"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       }
@@ -95,18 +150,54 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID (ObjectId)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Alice"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "alice@example.com"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "student"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-01T00:00:00Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2024-01-01T00:00:00Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "404": {
-            "description": "Not Found"
+            "description": "User not found"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       },
@@ -123,18 +214,41 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID (ObjectId)"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Fields for partial update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": " Jenifer Updated"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "jenifer.updated@example.com"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or validation errors"
           },
           "404": {
-            "description": "Not Found"
+            "description": "User not found"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       },
@@ -143,23 +257,30 @@
           "Users"
         ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID (ObjectId)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "404": {
-            "description": "Not Found"
+            "description": "User not found"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       }
@@ -175,7 +296,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Courses retrieved successfully"
           },
           "503": {
             "description": "Service Unavailable"
@@ -194,17 +315,34 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "Course creation payload",
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
+                "courseCode": {
+                  "type": "string",
+                  "example": "CSE341"
+                },
+                "courseName": {
+                  "type": "string",
+                  "example": "CSE341 Web Backend"
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Web Backend Development Course"
                 },
                 "credits": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 3
+                },
+                "instructorId": {
+                  "type": "string",
+                  "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                },
+                "semester": {
+                  "type": "string",
+                  "example": "Fall 2024"
                 }
               }
             }
@@ -212,7 +350,10 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Course created"
+          },
+          "400": {
+            "description": "Validation errors in payload"
           },
           "503": {
             "description": "Service Unavailable"
@@ -234,12 +375,16 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Course ID (ObjectId)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "404": {
             "description": "Not Found"
@@ -262,12 +407,69 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Course ID (ObjectId)"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Fields for partial update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "courseCode": {
+                  "type": "string",
+                  "example": "CSE341"
+                },
+                "courseName": {
+                  "type": "string",
+                  "example": "CSE341 Advanced Web Backend"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Updated desc"
+                },
+                "credits": {
+                  "type": "number",
+                  "example": 4
+                },
+                "instructorId": {
+                  "type": "string",
+                  "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                },
+                "semester": {
+                  "type": "string",
+                  "example": "Spring 2025"
+                },
+                "prerequisites": {
+                  "type": "array",
+                  "example": [
+                    "60f6c9c8f1f1f1f1f1f1f1f1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "enrolledStudents": {
+                  "type": "array",
+                  "example": [
+                    "60f6c9c8f1f1f1f1f1f1f1f1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or validation errors"
           },
           "404": {
             "description": "Not Found"
@@ -290,12 +492,16 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Course ID (ObjectId)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "404": {
             "description": "Not Found"
@@ -317,10 +523,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Assignments retrieved successfully"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       },
@@ -336,20 +542,54 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "Assignment creation payload",
             "schema": {
               "type": "object",
               "properties": {
+                "courseId": {
+                  "type": "string",
+                  "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                },
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "HW 1"
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Solve problems"
                 },
                 "dueDate": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "2026-01-31T23:59:59Z"
                 },
-                "courseId": {
-                  "example": "any"
+                "maxScore": {
+                  "type": "number",
+                  "example": 100
+                },
+                "submissions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "studentId": {
+                        "type": "string",
+                        "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                      },
+                      "submittedAt": {
+                        "type": "string",
+                        "example": "2026-01-30T12:00:00Z"
+                      },
+                      "score": {
+                        "type": "number",
+                        "example": 95
+                      },
+                      "feedback": {
+                        "type": "string",
+                        "example": "Good job"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -357,10 +597,13 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Assignment created"
+          },
+          "400": {
+            "description": "Validation errors in payload"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       }
@@ -379,18 +622,22 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Assignment ID (ObjectId)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Assignment retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Assignment not found"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       },
@@ -407,18 +654,73 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Assignment ID (ObjectId)"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Fields for partial update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "HW 1 Updated"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Updated desc"
+                },
+                "dueDate": {
+                  "type": "string",
+                  "example": "2026-02-01T23:59:59Z"
+                },
+                "maxScore": {
+                  "type": "number",
+                  "example": 120
+                },
+                "submissions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "studentId": {
+                        "type": "string",
+                        "example": "60f6c9c8f1f1f1f1f1f1f1f1"
+                      },
+                      "submittedAt": {
+                        "type": "string",
+                        "example": "2026-01-30T12:00:00Z"
+                      },
+                      "score": {
+                        "type": "number",
+                        "example": 95
+                      },
+                      "feedback": {
+                        "type": "string",
+                        "example": "Good job"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Assignment updated successfully"
+          },
+          "400": {
+            "description": "Invalid ID or validation errors"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Assignment not found"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       },
@@ -427,23 +729,30 @@
           "Assignments"
         ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Assignment ID (ObjectId)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Assignment deleted successfully"
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Assignment not found"
           },
           "503": {
-            "description": "Service Unavailable"
+            "description": "Database unavailable"
           }
         }
       }

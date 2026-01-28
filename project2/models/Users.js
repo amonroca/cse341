@@ -12,13 +12,17 @@ async function selectUserById(db, id) {
 
 async function insertUser(db, user) {
   const col = db.collection(COLLECTION_NAME);
-  const result = await col.insertOne(user);
+  const now = new Date();
+  const doc = { ...user, createdAt: now, updatedAt: now };
+  const result = await col.insertOne(doc);
   return { _id: result.insertedId };
 }
 
 async function updateUser(db, id, updatedUser) {
   const col = db.collection(COLLECTION_NAME);
-  return col.updateOne({ _id: id }, { $set: updatedUser });
+  const now = new Date();
+  const setDoc = { ...updatedUser, updatedAt: now };
+  return col.updateOne({ _id: id }, { $set: setDoc });
 }
 
 async function deleteUser(db, id) {

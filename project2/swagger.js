@@ -10,10 +10,10 @@ const doc = {
         { name: 'Courses', description: 'Operations related to courses' },
         { name: 'Assignments', description: 'Operations related to assignments' }
     ],
-    //host: 'cse341-y63x.onrender.com',
-    //schemes: ['https'],
-    host: 'localhost:8080',
-    schemes: ['http'],
+    host: 'cse341-y63x.onrender.com',
+    schemes: ['https'],
+    //host: 'localhost:8080',
+    //schemes: ['http'],
 };
 
 const outputFile = './swagger-output.json';

@@ -34,10 +34,12 @@ async function fetchAssignmentById(req, res, next) {
 
 async function addAssignment(req, res, next) {
   const assignmentData = {
+    courseId: new ObjectId(req.body.courseId),
     title: req.body.title,
     description: req.body.description,
     dueDate: req.body.dueDate,
-    courseId: req.body.courseId,
+    maxScore: req.body.maxScore,
+    submissions: req.body.submissions || []
   };
   try {
     if (getConnectionState()) {
@@ -52,10 +54,17 @@ async function addAssignment(req, res, next) {
 }
 
 async function editAssignment(req, res, next) {
+  const assignmentData = {};
+  if (req.body.courseId !== undefined) assignmentData.courseId = new ObjectId(req.body.courseId);
+  if (req.body.title !== undefined) assignmentData.title = req.body.title;
+  if (req.body.description !== undefined) assignmentData.description = req.body.description;
+  if (req.body.dueDate !== undefined) assignmentData.dueDate = req.body.dueDate;
+  if (req.body.maxScore !== undefined) assignmentData.maxScore = req.body.maxScore;
+  if (req.body.submissions !== undefined) assignmentData.submissions = req.body.submissions;
   try {
     if (getConnectionState()) {
-        const updatedAssignment = await Assignments.updateAssignment(getDb(), new ObjectId(req.params.id), req.body);
-        if (updatedAssignment) {
+        const updatedAssignment = await Assignments.updateAssignment(getDb(), new ObjectId(req.params.id), assignmentData);
+        if (updatedAssignment && updatedAssignment.matchedCount > 0) {
             res.setHeader('Content-Type', 'application/json');
             return res.status(200).json({ message: 'Assignment updated successfully' });
         } else {
