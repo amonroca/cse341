@@ -5,7 +5,7 @@
     "description": "This API allows management of users, courses, and assignments in a student course tracking system. It supports CRUD operations, OAuth-based authentication, and provides comprehensive documentation.",
     "version": "1.0.0"
   },
-  "host": "cse341-y63x.onrender.com",
+  "host": "cse341-1-wyid.onrender.com",
   "basePath": "/",
   "tags": [
     {

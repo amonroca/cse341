@@ -10,7 +10,7 @@ const doc = {
         { name: 'Courses', description: 'Operations related to courses' },
         { name: 'Assignments', description: 'Operations related to assignments' }
     ],
-    host: 'cse341-y63x.onrender.com',
+    host: 'cse341-1-wyid.onrender.com',
     schemes: ['https'],
     //host: 'localhost:8080',
     //schemes: ['http'],
