@@ -1,11 +1,10 @@
 const router = require('express').Router();
 const { fetchAllUsers, fetchUserById, addUser, editUser, removeUser } = require('../controllers/usersController');
-const { 
-	createUserValidators, 
-	updateUserValidators, 
-	idParamValidator, 
-	handleValidationResult 
-} = require('../middleware/validate');
+const { createUserValidators, updateUserValidators, idParamValidator, handleValidationResult } = require('../middleware/validate');
+const { isAuthenticated } = require('../middleware/authenticate');
+
+// Apply authentication middleware to all routes in this router
+router.use(isAuthenticated);
 
 router.get('/', /* 
 	#swagger.tags = ['Users']

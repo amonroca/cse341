@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const { fetchAllAssignments, fetchAssignmentById, addAssignment, editAssignment, removeAssignment } = require('../controllers/assignmentsController');
 const { idParamValidator, handleValidationResult, createAssignmentValidators, updateAssignmentValidators } = require('../middleware/validate');
+const { isAuthenticated } = require('../middleware/authenticate');
+
+// Apply authentication middleware to all routes in this router
+router.use(isAuthenticated);
 
 router.get('/', /* 
 	#swagger.tags = ['Assignments']
