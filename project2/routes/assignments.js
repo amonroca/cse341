@@ -9,6 +9,7 @@ router.use(isAuthenticated);
 router.get('/', /* 
 	#swagger.tags = ['Assignments']
 	#swagger.responses[200] = { description: 'Assignments retrieved successfully' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Database unavailable' }
 */ fetchAllAssignments);
 
@@ -18,6 +19,7 @@ router.get('/:id', /*
 	#swagger.responses[200] = { description: 'Assignment retrieved successfully' }
 	#swagger.responses[404] = { description: 'Assignment not found' }
 	#swagger.responses[400] = { description: 'Invalid ID' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Database unavailable' }
 */ idParamValidator, handleValidationResult, fetchAssignmentById);
 
@@ -38,6 +40,7 @@ router.post('/', /*
 	}
 	#swagger.responses[201] = { description: 'Assignment created' }
 	#swagger.responses[400] = { description: 'Validation errors in payload' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Database unavailable' }
 */ createAssignmentValidators, handleValidationResult, addAssignment);
 
@@ -59,7 +62,7 @@ router.put('/:id', /*
 	#swagger.responses[200] = { description: 'Assignment updated successfully' }
 	#swagger.responses[400] = { description: 'Invalid ID or validation errors' }
 	#swagger.responses[404] = { description: 'Assignment not found' }
-	#swagger.responses[503] = { description: 'Database unavailable' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 */ idParamValidator, updateAssignmentValidators, handleValidationResult, editAssignment);
 
 router.delete('/:id', /* 
@@ -67,6 +70,7 @@ router.delete('/:id', /*
 	#swagger.parameters['id'] = { in: 'path', required: true, type: 'string', description: 'Assignment ID (ObjectId)' }
 	#swagger.responses[200] = { description: 'Assignment deleted successfully' }
 	#swagger.responses[400] = { description: 'Invalid ID' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[404] = { description: 'Assignment not found' }
 	#swagger.responses[503] = { description: 'Database unavailable' }
 */ idParamValidator, handleValidationResult, removeAssignment);

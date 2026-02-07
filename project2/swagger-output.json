@@ -19,32 +19,16 @@
     {
       "name": "Assignments",
       "description": "Operations related to assignments"
+    },
+    {
+      "name": "Authentication",
+      "description": "Endpoints for user authentication and session management"
     }
   ],
   "schemes": [
     "https"
   ],
   "paths": {
-    "/login": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/logout": {
-      "get": {
-        "description": "",
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/users/": {
       "get": {
         "tags": [
@@ -94,7 +78,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "503": {
             "description": "Database unavailable"
@@ -154,7 +138,7 @@
             "description": "Validation errors in payload"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "503": {
             "description": "Database unavailable"
@@ -220,7 +204,7 @@
             "description": "Invalid ID"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "User not found"
@@ -274,7 +258,7 @@
             "description": "Invalid ID or validation errors"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "User not found"
@@ -309,7 +293,7 @@
             "description": "Invalid ID"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "User not found"
@@ -334,7 +318,7 @@
             "description": "Courses retrieved successfully"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "503": {
             "description": "Service Unavailable"
@@ -394,7 +378,7 @@
             "description": "Validation errors in payload"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "503": {
             "description": "Service Unavailable"
@@ -428,7 +412,7 @@
             "description": "Invalid ID"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "Not Found"
@@ -516,7 +500,7 @@
             "description": "Invalid ID or validation errors"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "Not Found"
@@ -551,7 +535,7 @@
             "description": "Invalid ID"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "Not Found"
@@ -576,7 +560,7 @@
             "description": "Assignments retrieved successfully"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "503": {
             "description": "Database unavailable"
@@ -656,7 +640,7 @@
             "description": "Validation errors in payload"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "503": {
             "description": "Database unavailable"
@@ -690,7 +674,7 @@
             "description": "Invalid ID"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "Assignment not found"
@@ -776,13 +760,13 @@
             "description": "Invalid ID or validation errors"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "Assignment not found"
           },
           "503": {
-            "description": "Database unavailable"
+            "description": "Service Unavailable"
           }
         }
       },
@@ -811,13 +795,42 @@
             "description": "Invalid ID"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - Authentication required"
           },
           "404": {
             "description": "Assignment not found"
           },
           "503": {
             "description": "Database unavailable"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Initiates GitHub OAuth authentication flow. Redirects user to GitHub for login.",
+        "responses": {
+          "302": {
+            "description": "Redirect to GitHub for authentication"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Logs out the current user and destroys the session.",
+        "responses": {
+          "200": {
+            "description": "User logged out successfully"
+          },
+          "500": {
+            "description": "Logout failed"
           }
         }
       }

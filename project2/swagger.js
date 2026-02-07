@@ -8,7 +8,8 @@ const doc = {
     tags: [
         { name: 'Users', description: 'Operations related to users' },
         { name: 'Courses', description: 'Operations related to courses' },
-        { name: 'Assignments', description: 'Operations related to assignments' }
+        { name: 'Assignments', description: 'Operations related to assignments' },
+        { name: 'Authentication', description: 'Endpoints for user authentication and session management' }
     ],
     host: 'cse341-1-wyid.onrender.com',
     schemes: ['https'],

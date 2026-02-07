@@ -9,6 +9,7 @@ router.use(isAuthenticated);
 router.get('/', /* 
 	#swagger.tags = ['Courses']
 	#swagger.responses[200] = { description: 'Courses retrieved successfully' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Service Unavailable' }
 */ fetchAllCourses);
 
@@ -18,6 +19,7 @@ router.get('/:id', /*
 	#swagger.responses[200] = { description: 'Course retrieved successfully' }
 	#swagger.responses[404] = { description: 'Not Found' }
 	#swagger.responses[400] = { description: 'Invalid ID' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Service Unavailable' }
 */ idParamValidator, handleValidationResult, fetchCourseById);
 
@@ -36,6 +38,7 @@ router.post('/', /*
 	}
 	#swagger.responses[201] = { description: 'Course created' }
 	#swagger.responses[400] = { description: 'Validation errors in payload' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Service Unavailable' }
 */ createCourseValidators, handleValidationResult, addCourse);
 
@@ -58,6 +61,7 @@ router.put('/:id', /*
 	#swagger.responses[200] = { description: 'Course updated successfully' }
 	#swagger.responses[400] = { description: 'Invalid ID or validation errors' }
 	#swagger.responses[404] = { description: 'Not Found' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Service Unavailable' }
 */ idParamValidator, updateCourseValidators, handleValidationResult, editCourse);
 
@@ -67,6 +71,7 @@ router.delete('/:id', /*
 	#swagger.responses[200] = { description: 'Course deleted successfully' }
 	#swagger.responses[400] = { description: 'Invalid ID' }
 	#swagger.responses[404] = { description: 'Not Found' }
+	#swagger.responses[401] = { description: 'Unauthorized - Authentication required' }
 	#swagger.responses[503] = { description: 'Service Unavailable' }
 */ idParamValidator, handleValidationResult, removeCourse);
 
